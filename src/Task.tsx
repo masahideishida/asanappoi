@@ -1,24 +1,35 @@
 import * as React from "react";
 
-interface IProps {
+interface IState {
   title: string;
   completed: boolean;
-  onTaskClick: () => void;
 }
 
-const Task: React.SFC<IProps> = props => {
-  const handleTaskClick = () => {
-    props.onTaskClick();
-  };
+class Task extends React.Component<{}, IState> {
+  constructor(props: {}) {
+    super(props);
+    this.state = {
+      title: "something to do.",
+      completed: false
+    };
+  }
 
-  return (
-    <div className={props.completed ? "task bg-green" : "task"}>
-      <div className="checkbox" onClick={handleTaskClick}>
-        click me!
+  public render() {
+    return (
+      <div className={this.state.completed ? "task bg-green" : "task"}>
+        <div className="checkbox" onClick={this.handleTaskClick}>
+          click me!
+        </div>
+        <textarea placeholder={this.state.title} />
       </div>
-      <textarea id="" wrap="off" placeholder={props.title} />
-    </div>
-  );
-};
+    );
+  }
+
+  private handleTaskClick = () => {
+    this.setState({
+      completed: !this.state.completed
+    });
+  };
+}
 
 export default Task;
