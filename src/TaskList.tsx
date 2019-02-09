@@ -1,11 +1,29 @@
 import * as React from "react";
 import Task from "./Task";
+import { ITasks, tasks } from "./TasksData";
 
-class TaskList extends React.Component {
+interface IState {
+  tasks: ITasks[];
+}
+
+class TaskList extends React.Component<{}, IState> {
+  constructor(props: {}) {
+    super(props);
+    this.state = {
+      tasks: []
+    };
+  }
+
+  public componentDidMount() {
+    this.setState({ tasks });
+  }
+
   public render() {
     return (
       <div className="task-list">
-        <Task />
+        {this.state.tasks.map(task => (
+          <Task key={task.id} title={task.title} completed={task.completed} />
+        ))}
       </div>
     );
   }
