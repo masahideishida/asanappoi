@@ -13,7 +13,7 @@ export const tasks: ITasks[] = [
   {
     id: 2,
     title: "anything to do",
-    completed: false
+    completed: true
   },
   {
     id: 3,
