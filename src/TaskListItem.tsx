@@ -4,6 +4,7 @@ interface IProps {
   key: number;
   title: string;
   handleEnterKeyDown: () => void;
+  handleBackspaceKeyDown: () => void;
 }
 
 const TaskListItem: React.SFC<IProps> = props => {
@@ -18,13 +19,15 @@ const TaskListItem: React.SFC<IProps> = props => {
   ) => {
     if (e.key === "Enter") {
       props.handleEnterKeyDown();
+    } else if (e.keyCode === 46) {
+      props.handleBackspaceKeyDown();
     }
   };
 
   return (
     <div
       key={props.key}
-      className="container items-center w-5/6 mx-auto py-2 my-2 border-b border-b-2 border-teal flex"
+      className="container items-center w-5/6 mx-auto py-2 my-2 border-b border-b-2 border-teal flex flex-auto"
     >
       <div className="inline-block mr-2" onClick={handleCheckClick}>
         <svg
@@ -37,10 +40,12 @@ const TaskListItem: React.SFC<IProps> = props => {
         </svg>
       </div>
       <textarea
-        className="resize-none appearance-none w-5/6 h-6"
-        placeholder={props.title}
+        className="resize-none appearance-none w-full h-6"
         onKeyDown={handleTextareaKeyDown}
         rows={1}
+        autoFocus={true}
+        wrap="off"
+        tabIndex={-1}
       />
     </div>
   );

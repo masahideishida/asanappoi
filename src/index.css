@@ -15,4 +15,6 @@ code {
 
 textarea {
   outline: 0;
+  white-space: pre;
+  overflow: hidden;
 }
