@@ -27,7 +27,7 @@ const TaskListItem: React.SFC<IProps> = props => {
   return (
     <div
       key={props.key}
-      className="container items-center w-5/6 mx-auto py-2 my-2 border-b border-b-2 border-teal flex flex-auto"
+      className="w-5/6 mx-auto p-2 m-2 border-b border-b-2 border-teal flex"
     >
       <div className="inline-block mr-2" onClick={handleCheckClick}>
         <svg
