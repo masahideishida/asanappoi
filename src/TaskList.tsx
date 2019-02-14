@@ -20,7 +20,7 @@ class TaskList extends React.Component<{}, IState> {
 
   public render() {
     return (
-      <div className="border border-gey-lighter my-4 py-6 w-2/5 h-full mx-auto">
+      <div className="container m-4 p-4 shadow w-5/6 ">
         {this.state.tasks.map(task => (
           <TaskListItem
             key={task.id}
