@@ -3,8 +3,7 @@ import * as React from "react";
 interface IProps {
   key: number;
   title: string;
-  handleEnterKeyDown: () => void;
-  handleBackspaceKeyDown: () => void;
+  closeTask: (key: number) => void;
 }
 
 const TaskListItem: React.SFC<IProps> = props => {
@@ -14,14 +13,8 @@ const TaskListItem: React.SFC<IProps> = props => {
     setTaskCompleted(!completed);
   };
 
-  const handleTextareaKeyDown = (
-    e: React.KeyboardEvent<HTMLTextAreaElement>
-  ) => {
-    if (e.key === "Enter") {
-      props.handleEnterKeyDown();
-    } else if (e.keyCode === 46) {
-      props.handleBackspaceKeyDown();
-    }
+  const handleCloseClick = () => {
+    props.closeTask(props.key);
   };
 
   return (
@@ -30,23 +23,23 @@ const TaskListItem: React.SFC<IProps> = props => {
       className="w-5/6 mx-auto p-2 m-2 border-b border-b-2 border-teal flex"
     >
       <div className="inline-block mr-2" onClick={handleCheckClick}>
-        <svg
+        <svg 
           className={completed ? "fill-current text-teal h-6 w-6" : "h-6 w-6"}
           xmlns="http://www.w3.org/2000/svg"
           fill-rule="evenodd"
-          clip-rule="evenodd"
-        >
-          <path d="M12 0c6.623 0 12 5.377 12 12s-5.377 12-12 12-12-5.377-12-12 5.377-12 12-12zm0 1c6.071 0 11 4.929 11 11s-4.929 11-11 11-11-4.929-11-11 4.929-11 11-11zm7 7.457l-9.005 9.565-4.995-5.865.761-.649 4.271 5.016 8.24-8.752.728.685z" />
+          clip-rule="evenodd">
+          <path d="M12 2c5.514 0 10 4.486 10 10s-4.486 10-10 10-10-4.486-10-10 4.486-10 10-10zm0-2c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm4.393 7.5l-5.643 5.784-2.644-2.506-1.856 1.858 4.5 4.364 7.5-7.643-1.857-1.857z"/>
         </svg>
       </div>
       <textarea
         className="resize-none appearance-none w-full h-6"
-        onKeyDown={handleTextareaKeyDown}
-        rows={1}
-        autoFocus={true}
-        wrap="off"
-        tabIndex={-1}
+        value={props.title}
       />
+      <div className="inline-block" onClick={handleCloseClick}>
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6">
+          <path d="M12,2C6.47,2,2,6.47,2,12s4.47,10,10,10s10-4.47,10-10S17.53,2,12,2z M17,15.59L15.59,17L12,13.41L8.41,17L7,15.59 L10.59,12L7,8.41L8.41,7L12,10.59L15.59,7L17,8.41L13.41,12L17,15.59z" />
+        </svg>
+      </div>
     </div>
   );
 };
