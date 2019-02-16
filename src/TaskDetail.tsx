@@ -1,28 +1,13 @@
 import * as React from "react";
-import { RouteComponentProps } from "react-router-dom";
-import { tasks, ITasks } from "./TasksData";
+import { tasks, ITask } from "./TasksData";
 
-type Props = RouteComponentProps<{ id: string }>;
-interface IState {
-  task?: ITasks;
+interface IProps {
+  task: ITask;
 }
 
-class TaskDetail extends React.Component<Props, IState> {
-  public constructor(props: Props) {
-    super(props);
-    this.state = {};
-  }
-
-  public componentDidMount = () => {
-    if (this.props.match.params.id) {
-      const id: number = parseInt(this.props.match.params.id, 10);
-      const task = tasks.filter(t => t.id === id)[0];
-      this.setState({ task });
-    }
-  };
-
+class TaskDetail extends React.Component<IProps> {
   public render() {
-    const task = this.state.task;
+    const task = this.props.task;
     return (
       <div className="container m-4 p-4 w-5/6 shadow">
         {task ? (

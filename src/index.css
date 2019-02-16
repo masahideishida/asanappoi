@@ -18,3 +18,7 @@ textarea {
   white-space: pre;
   overflow: hidden;
 }
+
+a {
+  text-decoration: none;
+}
