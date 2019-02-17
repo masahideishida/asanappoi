@@ -26,6 +26,7 @@ class Tasks extends React.Component<{}, IState> {
         <TaskInput
           title={this.state.newTask.title}
           onClick={this.newTaskCreate}
+          onKeyDown={this.enterNewTaskCreate}
           onChange={this.handleInputChange}
         />
         <div className="flex">
@@ -65,6 +66,12 @@ class Tasks extends React.Component<{}, IState> {
     const id = newTasks.slice(-1)[0].id + 1;
     const newTask = { id, title: "" };
     this.setState({ tasks: newTasks, newTask });
+  };
+
+  private enterNewTaskCreate = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.keyCode === 13) {
+      this.newTaskCreate();
+    }
   };
 
   private deleteTask = (id: number) => {
