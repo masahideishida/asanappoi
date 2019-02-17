@@ -62,7 +62,8 @@ class Tasks extends React.Component<{}, IState> {
   private newTaskCreate = () => {
     const newTasks = this.state.tasks.slice();
     newTasks.push(this.state.newTask);
-    const newTask = { id: tasks.length + 1, title: "" };
+    const id = newTasks.slice(-1)[0].id + 1;
+    const newTask = { id, title: "" };
     this.setState({ tasks: newTasks, newTask });
   };
 
