@@ -1,10 +1,10 @@
 import * as React from "react";
-import { NavLink } from "react-router-dom";
 
 interface IProps {
   id: number;
   title: string;
   onClick: () => void;
+  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   onCloseClick: () => void;
 }
 
@@ -30,6 +30,7 @@ const TaskListItem: React.FC<IProps> = props => {
       <textarea
         className="resize-none appearance-none w-full h-6"
         value={props.title}
+        onChange={props.onChange}
         onClick={props.onClick}
       />
       <div className="inline-block" onClick={props.onCloseClick}>

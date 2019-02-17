@@ -33,6 +33,7 @@ class Tasks extends React.Component<{}, IState> {
             tasks={this.state.tasks}
             handleTextareaClick={this.changeCurrentTask}
             onCloseClick={this.deleteTask}
+            onTextareaChange={this.handleTextareaChange}
           />
           <TaskDetail task={this.state.currentTask} />
         </div>
@@ -50,6 +51,12 @@ class Tasks extends React.Component<{}, IState> {
     const newTask = this.state.newTask;
     newTask.title = e.currentTarget.value;
     this.setState({ newTask });
+  };
+
+  private handleTextareaChange = (title: string) => {
+    const newtask = this.state.currentTask;
+    newtask.title = title;
+    this.setState({ currentTask: newtask });
   };
 
   private newTaskCreate = () => {
