@@ -1,9 +1,11 @@
 import * as React from "react";
-import { tasks, ITask } from "./TasksData";
+import { ITask } from "./TasksData";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 interface IProps {
   task: ITask;
-  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  onChange: (content: string) => void;
 }
 
 const TaskDetail: React.FC<IProps> = props => {
@@ -14,7 +16,7 @@ const TaskDetail: React.FC<IProps> = props => {
           <div className="w-full m-auto rounded overflow-hidden">
             <div className="px-6 py-4">
               <h2 className="font-bold text-xl mb-2">{props.task.title}</h2>
-              <textarea
+              <ReactQuill
                 className="resize-none w-full"
                 value={props.task.description}
                 onChange={props.onChange}
