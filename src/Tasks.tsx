@@ -78,11 +78,9 @@ class Tasks extends React.Component<{}, IState> {
     }
   };
 
-  private handleDescriptionChange = (
-    e: React.ChangeEvent<HTMLTextAreaElement>
-  ) => {
+  private handleDescriptionChange = (content: string) => {
     const currentTask = this.state.currentTask;
-    currentTask.description = e.currentTarget.value;
+    currentTask.description = content;
     this.setState({ currentTask });
   };
 
