@@ -36,7 +36,10 @@ class Tasks extends React.Component<{}, IState> {
             onCloseClick={this.deleteTask}
             onTextareaChange={this.handleTextareaChange}
           />
-          <TaskDetail task={this.state.currentTask} />
+          <TaskDetail
+            task={this.state.currentTask}
+            onChange={this.handleDescriptionChange}
+          />
         </div>
       </React.Fragment>
     );
@@ -55,9 +58,9 @@ class Tasks extends React.Component<{}, IState> {
   };
 
   private handleTextareaChange = (title: string) => {
-    const newtask = this.state.currentTask;
-    newtask.title = title;
-    this.setState({ currentTask: newtask });
+    const currentTask = this.state.currentTask;
+    currentTask.title = title;
+    this.setState({ currentTask });
   };
 
   private newTaskCreate = () => {
@@ -72,6 +75,14 @@ class Tasks extends React.Component<{}, IState> {
     if (e.keyCode === 13) {
       this.newTaskCreate();
     }
+  };
+
+  private handleDescriptionChange = (
+    e: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    const currentTask = this.state.currentTask;
+    currentTask.description = e.currentTarget.value;
+    this.setState({ currentTask });
   };
 
   private deleteTask = (id: number) => {
