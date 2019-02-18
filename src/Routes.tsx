@@ -10,7 +10,7 @@ const Routes: React.SFC = () => {
       <Header />
       <Router>
         <div>
-          <Route path="/list" component={Tasks} />
+          <Route path="/" component={Tasks} />
         </div>
       </Router>
     </React.Fragment>
