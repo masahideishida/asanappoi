@@ -68,7 +68,8 @@ class Tasks extends React.Component<{}, IState> {
     newTasks.push(this.state.newTask);
     const id = newTasks.slice(-1)[0].id + 1;
     const newTask = { id, title: "" };
-    this.setState({ tasks: newTasks, newTask });
+    const currentTask = newTasks.slice(-1)[0];
+    this.setState({ tasks: newTasks, currentTask, newTask });
   };
 
   private enterNewTaskCreate = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -87,7 +88,8 @@ class Tasks extends React.Component<{}, IState> {
 
   private deleteTask = (id: number) => {
     const newTasks = this.state.tasks.filter(task => task.id !== id);
-    this.setState({ tasks: newTasks });
+    const currentTask = { id: 9999, title: "" };
+    this.setState({ tasks: newTasks, currentTask });
   };
 }
 
