@@ -16,7 +16,7 @@ const TaskListItem: React.FC<IProps> = props => {
   };
 
   return (
-    <div className="w-5/6 mx-auto p-2 m-2 border-b border-b-2 border-teal flex">
+    <div className="w-5/6 mx-auto p-2 my-2 border-b border-b-2 border-teal flex">
       <div className="inline-block mr-2" onClick={handleCheckClick}>
         <svg
           className={completed ? "fill-current text-teal h-6 w-6" : "h-6 w-6"}

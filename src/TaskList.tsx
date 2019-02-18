@@ -16,7 +16,7 @@ const TaskList: React.FC<IProps> = props => {
   };
 
   return (
-    <div className="container m-4 p-4 shadow w-5/6">
+    <div className="container my-4 m-auto p-4 shadow w-5/6">
       {props.tasks.map(task => (
         <TaskListItem
           key={task.id}

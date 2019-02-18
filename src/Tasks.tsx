@@ -29,7 +29,7 @@ class Tasks extends React.Component<{}, IState> {
           onKeyDown={this.enterNewTaskCreate}
           onChange={this.handleInputChange}
         />
-        <div className="flex">
+        <div className="flex flex-col md:flex-row">
           <TaskList
             tasks={this.state.tasks}
             handleTextareaClick={this.changeCurrentTask}

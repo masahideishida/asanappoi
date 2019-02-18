@@ -8,7 +8,7 @@ interface IProps {
 
 const TaskDetail: React.FC<IProps> = props => {
   return (
-    <div className="container m-4 p-4 w-5/6 shadow">
+    <div className="container my-4 m-auto p-2 w-5/6 shadow">
       {props.task ? (
         <React.Fragment>
           <div className="w-full m-auto rounded overflow-hidden">

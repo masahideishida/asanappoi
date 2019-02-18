@@ -25,7 +25,7 @@ const TaskInput: React.SFC<IProps> = props => {
           type="button"
           onClick={props.onClick}
         >
-          タスクを追加する
+          Add
         </button>
       </div>
     </form>
