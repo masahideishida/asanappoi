@@ -3,6 +3,7 @@ import * as React from "react";
 interface IProps {
   title: string;
   onClick: () => void;
+  onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -15,14 +16,16 @@ const TaskInput: React.SFC<IProps> = props => {
           id="title"
           className="appearance-none bg-transparent border-none w-full text-grey-darker mr-3 py-1 px-2 leading-tight focus:outline-none"
           value={props.title}
+          onKeyDown={props.onKeyDown}
           onChange={props.onChange}
         />
+        <input type="text" className="hidden" />
         <button
           className="flex-no-shrink bg-teal hover:bg-teal-dark border-teal hover:border-teal-dark text-sm border-4 text-white py-1 px-2 rounded"
           type="button"
           onClick={props.onClick}
         >
-          タスクを追加する
+          Add
         </button>
       </div>
     </form>

@@ -26,16 +26,20 @@ class Tasks extends React.Component<{}, IState> {
         <TaskInput
           title={this.state.newTask.title}
           onClick={this.newTaskCreate}
+          onKeyDown={this.enterNewTaskCreate}
           onChange={this.handleInputChange}
         />
-        <div className="flex">
+        <div className="flex flex-col md:flex-row">
           <TaskList
             tasks={this.state.tasks}
             handleTextareaClick={this.changeCurrentTask}
             onCloseClick={this.deleteTask}
             onTextareaChange={this.handleTextareaChange}
           />
-          <TaskDetail task={this.state.currentTask} />
+          <TaskDetail
+            task={this.state.currentTask}
+            onChange={this.handleDescriptionChange}
+          />
         </div>
       </React.Fragment>
     );
@@ -54,9 +58,9 @@ class Tasks extends React.Component<{}, IState> {
   };
 
   private handleTextareaChange = (title: string) => {
-    const newtask = this.state.currentTask;
-    newtask.title = title;
-    this.setState({ currentTask: newtask });
+    const currentTask = this.state.currentTask;
+    currentTask.title = title;
+    this.setState({ currentTask });
   };
 
   private newTaskCreate = () => {
@@ -65,6 +69,20 @@ class Tasks extends React.Component<{}, IState> {
     const id = newTasks.slice(-1)[0].id + 1;
     const newTask = { id, title: "" };
     this.setState({ tasks: newTasks, newTask });
+  };
+
+  private enterNewTaskCreate = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.keyCode === 13) {
+      this.newTaskCreate();
+    }
+  };
+
+  private handleDescriptionChange = (
+    e: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    const currentTask = this.state.currentTask;
+    currentTask.description = e.currentTarget.value;
+    this.setState({ currentTask });
   };
 
   private deleteTask = (id: number) => {
