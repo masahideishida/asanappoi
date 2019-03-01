@@ -3,9 +3,22 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import "./css/tailwind.css";
 import Routes from "./Routes";
+import { Provider } from "react-redux";
+import { Store } from "redux";
+import configureStore from "./Store";
+import { IApplicationState } from "./Store";
 
-ReactDOM.render(<Routes />, document.getElementById("root"));
+interface IProps {
+  store: Store<IApplicationState>;
+}
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: http://bit.ly/CRA-PWA
+const Root: React.FC<IProps> = props => {
+  return (
+    <Provider store={props.store}>
+      <Routes />
+    </Provider>
+  );
+};
+
+const store = configureStore();
+ReactDOM.render(<Root store={store} />, document.getElementById("root"));
