@@ -15,10 +15,12 @@ export const getTasks: ActionCreator<ITasksGetAllAction> = () => {
   };
 };
 
-export const getCurrent: ActionCreator<ITasksGetCurrentAction> = () => {
+export const getCurrent: ActionCreator<ITasksGetCurrentAction> = (
+  i: number
+) => {
   return {
     type: TasksActionTypes.CURRENT,
-    currentTask: tasks[0]
+    currentTask: tasks.filter(task => task.id === i)[0]
   };
 };
 
