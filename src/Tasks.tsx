@@ -3,29 +3,27 @@ import { ITask, tasks } from "./TasksData";
 import TaskList from "./TaskList";
 import TaskDetail from "./TaskDetail";
 import TaskInput from "./TaskInput";
-import { getTasks } from "./TasksActions";
+import {
+  getTasks,
+  changeInput,
+  addTask,
+  changeCurrentTask
+} from "./TasksActions";
 import { connect } from "react-redux";
 import { IApplicationState } from "./Store";
 
 interface IProps {
   getTasks: typeof getTasks;
+  changeInput: typeof changeInput;
+  addTask: typeof addTask;
+  changeCurrentTask: typeof changeCurrentTask;
+
   tasks: ITask[];
-}
-
-interface IState {
-  currentTask: ITask;
   newTask: ITask;
+  currentTask: ITask;
 }
 
-class Tasks extends React.Component<IProps, IState> {
-  public constructor(props: IProps) {
-    super(props);
-    this.state = {
-      currentTask: tasks[0],
-      newTask: { id: tasks.length + 1, title: "" }
-    };
-  }
-
+class Tasks extends React.Component<IProps> {
   public componentDidMount() {
     this.props.getTasks();
   }
@@ -34,7 +32,7 @@ class Tasks extends React.Component<IProps, IState> {
     return (
       <React.Fragment>
         <TaskInput
-          title={this.state.newTask.title}
+          title={this.props.newTask.title}
           onClick={this.newTaskCreate}
           onKeyDown={this.enterNewTaskCreate}
           onChange={this.handleInputChange}
@@ -47,7 +45,7 @@ class Tasks extends React.Component<IProps, IState> {
             onTextareaChange={this.handleTextareaChange}
           />
           <TaskDetail
-            task={this.state.currentTask}
+            task={this.props.currentTask}
             onChange={this.handleDescriptionChange}
           />
         </div>
@@ -55,31 +53,29 @@ class Tasks extends React.Component<IProps, IState> {
     );
   }
 
-  private changeCurrentTask = (i: number) => {
-    this.setState({
-      currentTask: this.props.tasks.filter(task => task.id === i)[0]
-    });
-  };
-
-  private handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newTask = this.state.newTask;
-    newTask.title = e.currentTarget.value;
-    this.setState({ newTask });
-  };
-
   private handleTextareaChange = (title: string) => {
-    const currentTask = this.state.currentTask;
+    const currentTask = this.props.currentTask;
     currentTask.title = title;
     this.setState({ currentTask });
   };
 
+  private handleDescriptionChange = (content: string) => {
+    const currentTask = this.props.currentTask;
+    currentTask.description = content;
+    this.setState({ currentTask });
+  };
+
+  private deleteTask = (id: number) => {
+    const currentTask = { id: 9999, title: "" };
+    this.setState({ currentTask });
+  };
+
+  private handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.props.changeInput(e.currentTarget.value);
+  };
+
   private newTaskCreate = () => {
-    const newTasks = this.props.tasks.slice();
-    newTasks.push(this.state.newTask);
-    const id = newTasks.slice(-1)[0].id + 1;
-    const newTask = { id, title: "" };
-    const currentTask = newTasks.slice(-1)[0];
-    this.setState({ currentTask, newTask });
+    this.props.addTask(this.props.newTask);
   };
 
   private enterNewTaskCreate = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -88,28 +84,25 @@ class Tasks extends React.Component<IProps, IState> {
     }
   };
 
-  private handleDescriptionChange = (content: string) => {
-    const currentTask = this.state.currentTask;
-    currentTask.description = content;
-    this.setState({ currentTask });
-  };
-
-  private deleteTask = (id: number) => {
-    const newTasks = this.props.tasks.filter(task => task.id !== id);
-    const currentTask = { id: 9999, title: "" };
-    this.setState({ currentTask });
+  private changeCurrentTask = (id: number) => {
+    this.props.changeCurrentTask(id);
   };
 }
 
 const mapStateToProps = (store: IApplicationState) => {
   return {
-    tasks: store.tasks.tasks
+    tasks: store.tasks.tasks,
+    newTask: store.tasks.newTask,
+    currentTask: store.tasks.currentTask
   };
 };
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    getTasks: () => dispatch(getTasks())
+    getTasks: () => dispatch(getTasks()),
+    changeInput: (e: string) => dispatch(changeInput(e)),
+    addTask: (e: ITask) => dispatch(addTask(e)),
+    changeCurrentTask: (e: number) => dispatch(changeCurrentTask(e))
   };
 };
 
