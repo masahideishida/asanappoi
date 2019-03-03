@@ -4,7 +4,10 @@ export enum TasksActionTypes {
   GETALL = "TASKS/GETALL",
   CHANGE = "TASKS/CHANGE",
   ADD = "TASKS/ADD",
-  CURRENT = "TASKS/CURRENT"
+  CURRENT = "TASKS/CURRENT",
+  DELETE = "TASKS/DELETE",
+  TITLE = "TASKS/TITLE",
+  DESCRIPTION = "TASKS/DESCRIPTION"
 }
 
 export interface ITasksGetAll {
@@ -27,11 +30,29 @@ export interface ITasksChangeCurrent {
   id: number;
 }
 
+export interface ITasksDelete {
+  type: TasksActionTypes.DELETE;
+  id: number;
+}
+
+export interface ITasksTitleChange {
+  type: TasksActionTypes.TITLE;
+  title: string;
+}
+
+export interface ITasksDescriptionChange {
+  type: TasksActionTypes.DESCRIPTION;
+  content: string;
+}
+
 export type TasksActions =
   | ITasksGetAll
   | ITaskChangeInput
   | ITasksAdd
-  | ITasksChangeCurrent;
+  | ITasksChangeCurrent
+  | ITasksDelete
+  | ITasksTitleChange
+  | ITasksDescriptionChange;
 
 export interface ITasksState {
   readonly tasks: ITask[];
