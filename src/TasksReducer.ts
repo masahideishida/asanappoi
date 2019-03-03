@@ -1,6 +1,7 @@
 import { Reducer } from "redux";
 import { ITasksState, TasksActions, TasksActionTypes } from "./TasksTypes";
 import { tasks } from "./TasksData";
+import Tasks from "./Tasks";
 
 const initialTasksState: ITasksState = {
   tasks: [],
@@ -36,6 +37,13 @@ export const tasksReducer: Reducer<ITasksState, TasksActions> = (
       return {
         ...state,
         currentTask: state.tasks.filter(task => task.id === action.id)[0]
+      };
+    }
+    case TasksActionTypes.DELETE: {
+      return {
+        ...state,
+        tasks: state.tasks.filter(task => task.id !== action.id),
+        currentTask: { id: 9999, title: "" }
       };
     }
   }

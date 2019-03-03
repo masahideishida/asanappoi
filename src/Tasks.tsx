@@ -7,7 +7,8 @@ import {
   getTasks,
   changeInput,
   addTask,
-  changeCurrentTask
+  changeCurrentTask,
+  deleteTask
 } from "./TasksActions";
 import { connect } from "react-redux";
 import { IApplicationState } from "./Store";
@@ -17,6 +18,7 @@ interface IProps {
   changeInput: typeof changeInput;
   addTask: typeof addTask;
   changeCurrentTask: typeof changeCurrentTask;
+  deleteTask: typeof deleteTask;
 
   tasks: ITask[];
   newTask: ITask;
@@ -54,20 +56,16 @@ class Tasks extends React.Component<IProps> {
   }
 
   private handleTextareaChange = (title: string) => {
-    const currentTask = this.props.currentTask;
-    currentTask.title = title;
-    this.setState({ currentTask });
+    // todo
   };
 
   private handleDescriptionChange = (content: string) => {
     const currentTask = this.props.currentTask;
     currentTask.description = content;
-    this.setState({ currentTask });
   };
 
   private deleteTask = (id: number) => {
-    const currentTask = { id: 9999, title: "" };
-    this.setState({ currentTask });
+    this.props.deleteTask(id);
   };
 
   private handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -102,7 +100,8 @@ const mapDispatchToProps = (dispatch: any) => {
     getTasks: () => dispatch(getTasks()),
     changeInput: (e: string) => dispatch(changeInput(e)),
     addTask: (e: ITask) => dispatch(addTask(e)),
-    changeCurrentTask: (e: number) => dispatch(changeCurrentTask(e))
+    changeCurrentTask: (e: number) => dispatch(changeCurrentTask(e)),
+    deleteTask: (e: number) => dispatch(deleteTask(e))
   };
 };
 

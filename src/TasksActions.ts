@@ -4,9 +4,11 @@ import {
   ITasksGetAll,
   ITasksAdd,
   ITaskChangeInput,
-  ITasksChangeCurrent
+  ITasksChangeCurrent,
+  ITasksDelete
 } from "./TasksTypes";
 import { tasks, ITask } from "./TasksData";
+import { type } from "os";
 
 export const getTasks: ActionCreator<ITasksGetAll> = () => {
   return {
@@ -34,6 +36,13 @@ export const changeCurrentTask: ActionCreator<ITasksChangeCurrent> = (
 ) => {
   return {
     type: TasksActionTypes.CURRENT,
+    id
+  };
+};
+
+export const deleteTask: ActionCreator<ITasksDelete> = (id: number) => {
+  return {
+    type: TasksActionTypes.DELETE,
     id
   };
 };
