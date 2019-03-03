@@ -46,6 +46,32 @@ export const tasksReducer: Reducer<ITasksState, TasksActions> = (
         currentTask: { id: 9999, title: "" }
       };
     }
+    case TasksActionTypes.TITLE: {
+      return {
+        ...state,
+        tasks: state.tasks.map(task => {
+          return task.id !== state.currentTask.id
+            ? task
+            : {
+                ...task,
+                title: action.title
+              };
+        })
+      };
+    }
+    case TasksActionTypes.DESCRIPTION: {
+      return {
+        ...state,
+        tasks: state.tasks.map(task => {
+          return task.id !== state.currentTask.id
+            ? task
+            : {
+                ...task,
+                description: action.content
+              };
+        })
+      };
+    }
   }
   return state;
 };
