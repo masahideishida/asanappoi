@@ -3,21 +3,31 @@ import { ITask, tasks } from "./TasksData";
 import TaskList from "./TaskList";
 import TaskDetail from "./TaskDetail";
 import TaskInput from "./TaskInput";
+import { getTasks } from "./TasksActions";
+import { connect } from "react-redux";
+import { IApplicationState } from "./Store";
+
+interface IProps {
+  getTasks: typeof getTasks;
+  tasks: ITask[];
+}
 
 interface IState {
-  tasks: ITask[];
   currentTask: ITask;
   newTask: ITask;
 }
 
-class Tasks extends React.Component<{}, IState> {
-  public constructor(props: {}) {
+class Tasks extends React.Component<IProps, IState> {
+  public constructor(props: IProps) {
     super(props);
     this.state = {
-      tasks,
       currentTask: tasks[0],
       newTask: { id: tasks.length + 1, title: "" }
     };
+  }
+
+  public componentDidMount() {
+    this.props.getTasks();
   }
 
   public render() {
@@ -31,7 +41,7 @@ class Tasks extends React.Component<{}, IState> {
         />
         <div className="flex flex-col md:flex-row">
           <TaskList
-            tasks={this.state.tasks}
+            tasks={this.props.tasks}
             handleTextareaClick={this.changeCurrentTask}
             onCloseClick={this.deleteTask}
             onTextareaChange={this.handleTextareaChange}
@@ -47,7 +57,7 @@ class Tasks extends React.Component<{}, IState> {
 
   private changeCurrentTask = (i: number) => {
     this.setState({
-      currentTask: this.state.tasks.filter(task => task.id === i)[0]
+      currentTask: this.props.tasks.filter(task => task.id === i)[0]
     });
   };
 
@@ -64,12 +74,12 @@ class Tasks extends React.Component<{}, IState> {
   };
 
   private newTaskCreate = () => {
-    const newTasks = this.state.tasks.slice();
+    const newTasks = this.props.tasks.slice();
     newTasks.push(this.state.newTask);
     const id = newTasks.slice(-1)[0].id + 1;
     const newTask = { id, title: "" };
     const currentTask = newTasks.slice(-1)[0];
-    this.setState({ tasks: newTasks, currentTask, newTask });
+    this.setState({ currentTask, newTask });
   };
 
   private enterNewTaskCreate = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -85,10 +95,25 @@ class Tasks extends React.Component<{}, IState> {
   };
 
   private deleteTask = (id: number) => {
-    const newTasks = this.state.tasks.filter(task => task.id !== id);
+    const newTasks = this.props.tasks.filter(task => task.id !== id);
     const currentTask = { id: 9999, title: "" };
-    this.setState({ tasks: newTasks, currentTask });
+    this.setState({ currentTask });
   };
 }
 
-export default Tasks;
+const mapStateToProps = (store: IApplicationState) => {
+  return {
+    tasks: store.tasks.tasks
+  };
+};
+
+const mapDispatchToProps = (dispatch: any) => {
+  return {
+    getTasks: () => dispatch(getTasks())
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Tasks);
