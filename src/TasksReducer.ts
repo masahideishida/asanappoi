@@ -56,7 +56,12 @@ export const tasksReducer: Reducer<ITasksState, TasksActions> = (
                 ...task,
                 title: action.title
               };
-        })
+        }),
+        currentTask: {
+          id: state.currentTask.id,
+          title: action.title,
+          description: state.currentTask.description
+        }
       };
     }
     case TasksActionTypes.DESCRIPTION: {
@@ -69,7 +74,12 @@ export const tasksReducer: Reducer<ITasksState, TasksActions> = (
                 ...task,
                 description: action.content
               };
-        })
+        }),
+        currentTask: {
+          id: state.currentTask.id,
+          title: state.currentTask.title,
+          description: action.content
+        }
       };
     }
   }
