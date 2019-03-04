@@ -20,7 +20,7 @@ export const tasksReducer: Reducer<ITasksState, TasksActions> = (
         tasks: action.tasks
       };
     }
-    case TasksActionTypes.CHANGE: {
+    case TasksActionTypes.CHANGEINPUT: {
       return {
         ...state,
         newTask: { id: state.tasks.slice(-1)[0].id + 1, title: action.input }
@@ -33,7 +33,7 @@ export const tasksReducer: Reducer<ITasksState, TasksActions> = (
         newTask: { id: state.tasks.slice(-1)[0].id + 1, title: "" }
       };
     }
-    case TasksActionTypes.CURRENT: {
+    case TasksActionTypes.CHANGECURRENT: {
       return {
         ...state,
         currentTask: state.tasks.filter(task => task.id === action.id)[0]
@@ -46,7 +46,7 @@ export const tasksReducer: Reducer<ITasksState, TasksActions> = (
         currentTask: { id: 9999, title: "" }
       };
     }
-    case TasksActionTypes.TITLE: {
+    case TasksActionTypes.CHANGETITLE: {
       return {
         ...state,
         tasks: state.tasks.map(task => {
@@ -64,7 +64,7 @@ export const tasksReducer: Reducer<ITasksState, TasksActions> = (
         }
       };
     }
-    case TasksActionTypes.DESCRIPTION: {
+    case TasksActionTypes.CHANGEDESCRIPTION: {
       return {
         ...state,
         tasks: state.tasks.map(task => {

@@ -6,23 +6,15 @@ import {
   ITaskChangeInput,
   ITasksChangeCurrent,
   ITasksDelete,
-  ITasksTitleChange,
-  ITasksDescriptionChange
+  ITasksChangeTitle,
+  ITasksChangeDescription
 } from "./TasksTypes";
 import { tasks, ITask } from "./TasksData";
-import { type } from "os";
 
-export const getTasks: ActionCreator<ITasksGetAll> = () => {
+export const getAllTasks: ActionCreator<ITasksGetAll> = () => {
   return {
     type: TasksActionTypes.GETALL,
     tasks
-  };
-};
-
-export const changeInput: ActionCreator<ITaskChangeInput> = (input: string) => {
-  return {
-    type: TasksActionTypes.CHANGE,
-    input
   };
 };
 
@@ -33,15 +25,6 @@ export const addTask: ActionCreator<ITasksAdd> = (task: ITask) => {
   };
 };
 
-export const changeCurrentTask: ActionCreator<ITasksChangeCurrent> = (
-  id: number
-) => {
-  return {
-    type: TasksActionTypes.CURRENT,
-    id
-  };
-};
-
 export const deleteTask: ActionCreator<ITasksDelete> = (id: number) => {
   return {
     type: TasksActionTypes.DELETE,
@@ -49,20 +32,36 @@ export const deleteTask: ActionCreator<ITasksDelete> = (id: number) => {
   };
 };
 
-export const changeTitle: ActionCreator<ITasksTitleChange> = (
+export const changeInput: ActionCreator<ITaskChangeInput> = (input: string) => {
+  return {
+    type: TasksActionTypes.CHANGEINPUT,
+    input
+  };
+};
+
+export const changeCurrentTask: ActionCreator<ITasksChangeCurrent> = (
+  id: number
+) => {
+  return {
+    type: TasksActionTypes.CHANGECURRENT,
+    id
+  };
+};
+
+export const changeTitle: ActionCreator<ITasksChangeTitle> = (
   title: string
 ) => {
   return {
-    type: TasksActionTypes.TITLE,
+    type: TasksActionTypes.CHANGETITLE,
     title
   };
 };
 
-export const changeDescription: ActionCreator<ITasksDescriptionChange> = (
+export const changeDescription: ActionCreator<ITasksChangeDescription> = (
   content: string
 ) => {
   return {
-    type: TasksActionTypes.DESCRIPTION,
+    type: TasksActionTypes.CHANGEDESCRIPTION,
     content
   };
 };

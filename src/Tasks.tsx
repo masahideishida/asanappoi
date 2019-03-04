@@ -4,7 +4,7 @@ import TaskList from "./TaskList";
 import TaskDetail from "./TaskDetail";
 import TaskInput from "./TaskInput";
 import {
-  getTasks,
+  getAllTasks,
   changeInput,
   addTask,
   changeCurrentTask,
@@ -16,7 +16,7 @@ import { connect } from "react-redux";
 import { IApplicationState } from "./Store";
 
 interface IProps {
-  getTasks: typeof getTasks;
+  getAllTasks: typeof getAllTasks;
   changeInput: typeof changeInput;
   addTask: typeof addTask;
   changeCurrentTask: typeof changeCurrentTask;
@@ -31,7 +31,7 @@ interface IProps {
 
 class Tasks extends React.Component<IProps> {
   public componentDidMount() {
-    this.props.getTasks();
+    this.props.getAllTasks();
   }
 
   public render() {
@@ -100,11 +100,11 @@ const mapStateToProps = (store: IApplicationState) => {
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    getTasks: () => dispatch(getTasks()),
-    changeInput: (e: string) => dispatch(changeInput(e)),
+    getAllTasks: () => dispatch(getAllTasks()),
     addTask: (e: ITask) => dispatch(addTask(e)),
-    changeCurrentTask: (e: number) => dispatch(changeCurrentTask(e)),
     deleteTask: (e: number) => dispatch(deleteTask(e)),
+    changeInput: (e: string) => dispatch(changeInput(e)),
+    changeCurrentTask: (e: number) => dispatch(changeCurrentTask(e)),
     changeTitle: (e: string) => dispatch(changeTitle(e)),
     changeDescription: (e: string) => dispatch(changeDescription(e))
   };

@@ -2,12 +2,12 @@ import { ITask } from "./TasksData";
 
 export enum TasksActionTypes {
   GETALL = "TASKS/GETALL",
-  CHANGE = "TASKS/CHANGE",
   ADD = "TASKS/ADD",
-  CURRENT = "TASKS/CURRENT",
   DELETE = "TASKS/DELETE",
-  TITLE = "TASKS/TITLE",
-  DESCRIPTION = "TASKS/DESCRIPTION"
+  CHANGEINPUT = "TASKS/CHANGEINPUT",
+  CHANGECURRENT = "TASKS/CURRENT",
+  CHANGETITLE = "TASKS/CHANGETITLE",
+  CHANGEDESCRIPTION = "TASKS/DESCRIPTION"
 }
 
 export interface ITasksGetAll {
@@ -15,19 +15,9 @@ export interface ITasksGetAll {
   tasks: ITask[];
 }
 
-export interface ITaskChangeInput {
-  type: TasksActionTypes.CHANGE;
-  input: string;
-}
-
 export interface ITasksAdd {
   type: TasksActionTypes.ADD;
   task: ITask;
-}
-
-export interface ITasksChangeCurrent {
-  type: TasksActionTypes.CURRENT;
-  id: number;
 }
 
 export interface ITasksDelete {
@@ -35,24 +25,34 @@ export interface ITasksDelete {
   id: number;
 }
 
-export interface ITasksTitleChange {
-  type: TasksActionTypes.TITLE;
+export interface ITaskChangeInput {
+  type: TasksActionTypes.CHANGEINPUT;
+  input: string;
+}
+
+export interface ITasksChangeCurrent {
+  type: TasksActionTypes.CHANGECURRENT;
+  id: number;
+}
+
+export interface ITasksChangeTitle {
+  type: TasksActionTypes.CHANGETITLE;
   title: string;
 }
 
-export interface ITasksDescriptionChange {
-  type: TasksActionTypes.DESCRIPTION;
+export interface ITasksChangeDescription {
+  type: TasksActionTypes.CHANGEDESCRIPTION;
   content: string;
 }
 
 export type TasksActions =
   | ITasksGetAll
-  | ITaskChangeInput
   | ITasksAdd
-  | ITasksChangeCurrent
   | ITasksDelete
-  | ITasksTitleChange
-  | ITasksDescriptionChange;
+  | ITaskChangeInput
+  | ITasksChangeCurrent
+  | ITasksChangeTitle
+  | ITasksChangeDescription;
 
 export interface ITasksState {
   readonly tasks: ITask[];
