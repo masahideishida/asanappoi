@@ -28,8 +28,8 @@ export const tasksReducer: Reducer<ITasksState, TasksActions> = (
     }
     case TasksActionTypes.ADD: {
       return {
-        ...state,
         tasks: state.tasks.concat(action.task),
+        currentTask: action.task,
         newTask: { id: state.tasks.slice(-1)[0].id + 1, title: "" }
       };
     }
