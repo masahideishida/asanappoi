@@ -4,9 +4,9 @@ import { ITask } from "./TasksData";
 
 interface IProps {
   tasks: ITask[];
-  onCloseClick: (id: number) => void;
+  onCloseClick: (id: string) => void;
   onTextareaChange: (title: string) => void;
-  handleTextareaClick: (id: number) => void;
+  handleTextareaClick: (id: string) => void;
 }
 
 const TaskList: React.FC<IProps> = props => {

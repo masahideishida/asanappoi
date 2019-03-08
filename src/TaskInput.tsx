@@ -7,7 +7,7 @@ interface IProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const TaskInput: React.SFC<IProps> = props => {
+const TaskInput: React.FC<IProps> = props => {
   return (
     <form className="w-1/2 m-auto">
       <div className="flex items-center border-b border-b-2 border-teal py-2">

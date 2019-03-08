@@ -1,29 +1,29 @@
 import { watchFile } from "fs";
 
 export interface ITask {
-  id: number;
+  id: string;
   title: string;
-  description?: string;
+  description: string;
 }
 
 export const tasks: ITask[] = [
   {
-    id: 1,
+    id: "1",
     title: "something to do",
     description: "it is a description for this task. Please read me."
   },
   {
-    id: 2,
+    id: "2",
     title: "anything to do",
     description: "it is a description for this task. Please read me."
   },
   {
-    id: 3,
+    id: "3",
     title: "everything to do",
     description: "it is a description for this task. Please read me."
   },
   {
-    id: 4,
+    id: "4",
     title: "nothing to do",
     description: "it is a description for this task. Please read me."
   }

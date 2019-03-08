@@ -3,20 +3,37 @@ import { ITask, tasks } from "./TasksData";
 import TaskList from "./TaskList";
 import TaskDetail from "./TaskDetail";
 import TaskInput from "./TaskInput";
+import {
+  getAllTasks,
+  changeInput,
+  addTask,
+  changeCurrentTask,
+  deleteTask,
+  changeTitle,
+  changeDescription
+} from "./TasksActions";
 import { connect } from "react-redux";
 import { IApplicationState } from "./Store";
-import { getCurrent, getNew, getTasks } from "./TasksActions";
 
 interface IProps {
-  getTasks: typeof getTasks;
-  getCurrent: typeof getCurrent;
-  getNew: typeof getNew;
+  getAllTasks: typeof getAllTasks;
+  changeInput: typeof changeInput;
+  addTask: typeof addTask;
+  changeCurrentTask: typeof changeCurrentTask;
+  deleteTask: typeof deleteTask;
+  changeTitle: typeof changeTitle;
+  changeDescription: typeof changeDescription;
+
   tasks: ITask[];
-  currentTask: ITask;
   newTask: ITask;
+  currentTask: ITask;
 }
 
 class Tasks extends React.Component<IProps> {
+  public componentDidMount() {
+    this.props.getAllTasks();
+  }
+
   public render() {
     return (
       <React.Fragment>
@@ -42,31 +59,24 @@ class Tasks extends React.Component<IProps> {
     );
   }
 
-  private changeCurrentTask = (i: number) => {
-    this.setState({
-      currentTask: this.props.tasks.filter(task => task.id === i)[0]
-    });
+  private handleTextareaChange = (title: string) => {
+    this.props.changeTitle(title);
+  };
+
+  private handleDescriptionChange = (content: string) => {
+    this.props.changeDescription(content);
+  };
+
+  private deleteTask = (id: string) => {
+    this.props.deleteTask(id);
   };
 
   private handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newTask = this.props.newTask;
-    newTask.title = e.currentTarget.value;
-    this.setState({ newTask });
-  };
-
-  private handleTextareaChange = (title: string) => {
-    const currentTask = this.props.currentTask;
-    currentTask.title = title;
-    this.setState({ currentTask });
+    this.props.changeInput(e.currentTarget.value);
   };
 
   private newTaskCreate = () => {
-    const newTasks = this.props.tasks.slice();
-    newTasks.push(this.props.newTask);
-    const id = newTasks.slice(-1)[0].id + 1;
-    const newTask = { id, title: "" };
-    const currentTask = newTasks.slice(-1)[0];
-    this.setState({ tasks: newTasks, currentTask, newTask });
+    this.props.addTask(this.props.newTask);
   };
 
   private enterNewTaskCreate = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -75,32 +85,28 @@ class Tasks extends React.Component<IProps> {
     }
   };
 
-  private handleDescriptionChange = (content: string) => {
-    const currentTask = this.props.currentTask;
-    currentTask.description = content;
-    this.setState({ currentTask });
-  };
-
-  private deleteTask = (id: number) => {
-    const newTasks = this.props.tasks.filter(task => task.id !== id);
-    const currentTask = { id: 9999, title: "" };
-    this.setState({ tasks: newTasks, currentTask });
+  private changeCurrentTask = (id: string) => {
+    this.props.changeCurrentTask(id);
   };
 }
 
 const mapStateToProps = (store: IApplicationState) => {
   return {
     tasks: store.tasks.tasks,
-    currentTask: store.tasks.currentTask,
-    newTask: store.tasks.newTask
+    newTask: store.tasks.newTask,
+    currentTask: store.tasks.currentTask
   };
 };
 
 const mapDispatchToProps = (dispatch: any) => {
   return {
-    getTasks: () => dispatch(getTasks()),
-    getCurrent: () => dispatch(getCurrent()),
-    getNew: () => dispatch(getNew())
+    getAllTasks: () => dispatch(getAllTasks()),
+    addTask: (e: ITask) => dispatch(addTask(e)),
+    deleteTask: (e: number) => dispatch(deleteTask(e)),
+    changeInput: (e: string) => dispatch(changeInput(e)),
+    changeCurrentTask: (e: number) => dispatch(changeCurrentTask(e)),
+    changeTitle: (e: string) => dispatch(changeTitle(e)),
+    changeDescription: (e: string) => dispatch(changeDescription(e))
   };
 };
 

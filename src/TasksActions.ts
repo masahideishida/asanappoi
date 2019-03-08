@@ -1,32 +1,69 @@
-import { ActionCreator, AnyAction, Dispatch } from "redux";
-import { tasks } from "./TasksData";
+import { ActionCreator } from "redux";
 import {
-  ITasksGetAllAction,
-  ITasksGetCurrentAction,
-  ITasksGetNewAction,
-  ITasksState,
-  TasksActionTypes
+  TasksActionTypes,
+  ITasksGetAll,
+  ITasksAdd,
+  ITaskChangeInput,
+  ITasksChangeCurrent,
+  ITasksDelete,
+  ITasksChangeTitle,
+  ITasksChangeDescription
 } from "./TasksTypes";
+import { tasks, ITask } from "./TasksData";
+import Utils from "./Utils";
 
-export const getTasks: ActionCreator<ITasksGetAllAction> = () => {
+export const getAllTasks: ActionCreator<ITasksGetAll> = () => {
   return {
     type: TasksActionTypes.GETALL,
     tasks
   };
 };
 
-export const getCurrent: ActionCreator<ITasksGetCurrentAction> = (
-  i: number
-) => {
+export const addTask: ActionCreator<ITasksAdd> = (task: ITask) => {
   return {
-    type: TasksActionTypes.CURRENT,
-    currentTask: tasks.filter(task => task.id === i)[0]
+    type: TasksActionTypes.ADD,
+    task,
+    newId: Utils.newId()
   };
 };
 
-export const getNew: ActionCreator<ITasksGetNewAction> = () => {
+export const deleteTask: ActionCreator<ITasksDelete> = (id: string) => {
   return {
-    type: TasksActionTypes.NEW,
-    newTask: { id: tasks.length + 1, title: "" }
+    type: TasksActionTypes.DELETE,
+    id
+  };
+};
+
+export const changeInput: ActionCreator<ITaskChangeInput> = (input: string) => {
+  return {
+    type: TasksActionTypes.CHANGEINPUT,
+    input
+  };
+};
+
+export const changeCurrentTask: ActionCreator<ITasksChangeCurrent> = (
+  id: string
+) => {
+  return {
+    type: TasksActionTypes.CHANGECURRENT,
+    id
+  };
+};
+
+export const changeTitle: ActionCreator<ITasksChangeTitle> = (
+  title: string
+) => {
+  return {
+    type: TasksActionTypes.CHANGETITLE,
+    title
+  };
+};
+
+export const changeDescription: ActionCreator<ITasksChangeDescription> = (
+  content: string
+) => {
+  return {
+    type: TasksActionTypes.CHANGEDESCRIPTION,
+    content
   };
 };

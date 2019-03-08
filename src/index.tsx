@@ -3,10 +3,9 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import "./css/tailwind.css";
 import Routes from "./Routes";
-import { Provider } from "react-redux";
 import { Store } from "redux";
-import configureStore from "./Store";
-import { IApplicationState } from "./Store";
+import { store, IApplicationState } from "./Store";
+import { Provider } from "react-redux";
 
 interface IProps {
   store: Store<IApplicationState>;
@@ -20,5 +19,4 @@ const Root: React.FC<IProps> = props => {
   );
 };
 
-const store = configureStore();
 ReactDOM.render(<Root store={store} />, document.getElementById("root"));

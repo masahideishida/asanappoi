@@ -1,16 +1,13 @@
 import { combineReducers, createStore, Store } from "redux";
-import { TasksReducer } from "./TasksReducer";
 import { ITasksState } from "./TasksTypes";
+import { tasksReducer } from "./TasksReducer";
 
 export interface IApplicationState {
   tasks: ITasksState;
 }
 
 const rootReducer = combineReducers<IApplicationState>({
-  tasks: TasksReducer
+  tasks: tasksReducer
 });
 
-export default function configureStore(): Store<IApplicationState> {
-  const store = createStore(rootReducer, undefined);
-  return store;
-}
+export const store = createStore(rootReducer);
