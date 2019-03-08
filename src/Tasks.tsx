@@ -80,7 +80,7 @@ class Tasks extends React.Component<IProps> {
   };
 
   private enterNewTaskCreate = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.keyCode === 13) {
+    if (e.keyCode === 13 && e.currentTarget.value) {
       this.newTaskCreate();
     }
   };
