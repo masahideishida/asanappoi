@@ -10,6 +10,7 @@ import {
   ITasksChangeDescription
 } from "./TasksTypes";
 import { tasks, ITask } from "./TasksData";
+import Utils from "./Utils";
 
 export const getAllTasks: ActionCreator<ITasksGetAll> = () => {
   return {
@@ -21,11 +22,12 @@ export const getAllTasks: ActionCreator<ITasksGetAll> = () => {
 export const addTask: ActionCreator<ITasksAdd> = (task: ITask) => {
   return {
     type: TasksActionTypes.ADD,
-    task
+    task,
+    newId: Utils.newId()
   };
 };
 
-export const deleteTask: ActionCreator<ITasksDelete> = (id: number) => {
+export const deleteTask: ActionCreator<ITasksDelete> = (id: string) => {
   return {
     type: TasksActionTypes.DELETE,
     id
@@ -40,7 +42,7 @@ export const changeInput: ActionCreator<ITaskChangeInput> = (input: string) => {
 };
 
 export const changeCurrentTask: ActionCreator<ITasksChangeCurrent> = (
-  id: number
+  id: string
 ) => {
   return {
     type: TasksActionTypes.CHANGECURRENT,

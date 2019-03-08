@@ -1,11 +1,11 @@
 import { Reducer } from "redux";
 import { ITasksState, TasksActions, TasksActionTypes } from "./TasksTypes";
 import { tasks } from "./TasksData";
-import Tasks from "./Tasks";
+import Utils from "./Utils";
 
 const initialTasksState: ITasksState = {
   tasks: [],
-  newTask: { id: tasks.length + 1, title: "", description: "" },
+  newTask: { id: Utils.newId(), title: "", description: "" },
   currentTask: tasks[0]
 };
 
@@ -24,9 +24,8 @@ export const tasksReducer: Reducer<ITasksState, TasksActions> = (
       return {
         ...state,
         newTask: {
-          id: state.tasks.slice(-1)[0].id + 1,
-          title: action.input,
-          description: ""
+          ...state.newTask,
+          title: action.input
         }
       };
     }
@@ -35,7 +34,7 @@ export const tasksReducer: Reducer<ITasksState, TasksActions> = (
         tasks: state.tasks.concat(action.task),
         currentTask: action.task,
         newTask: {
-          id: state.tasks.slice(-1)[0].id + 1,
+          id: action.newId,
           title: "",
           description: ""
         }
@@ -53,7 +52,7 @@ export const tasksReducer: Reducer<ITasksState, TasksActions> = (
         tasks: state.tasks.filter(task => task.id !== action.id),
         currentTask:
           state.currentTask.id === action.id
-            ? { id: 9999, title: "", description: "" }
+            ? { id: "9999", title: "", description: "" }
             : state.currentTask
       };
     }

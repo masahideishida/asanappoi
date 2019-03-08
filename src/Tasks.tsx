@@ -67,7 +67,7 @@ class Tasks extends React.Component<IProps> {
     this.props.changeDescription(content);
   };
 
-  private deleteTask = (id: number) => {
+  private deleteTask = (id: string) => {
     this.props.deleteTask(id);
   };
 
@@ -80,12 +80,12 @@ class Tasks extends React.Component<IProps> {
   };
 
   private enterNewTaskCreate = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.keyCode === 13 && e.currentTarget.value) {
+    if (e.keyCode === 13) {
       this.newTaskCreate();
     }
   };
 
-  private changeCurrentTask = (id: number) => {
+  private changeCurrentTask = (id: string) => {
     this.props.changeCurrentTask(id);
   };
 }

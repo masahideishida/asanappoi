@@ -1,7 +1,7 @@
 import * as React from "react";
 
 interface IProps {
-  id: number;
+  id: string;
   title: string;
   onClick: () => void;
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;

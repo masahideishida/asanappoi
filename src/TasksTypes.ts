@@ -18,11 +18,12 @@ export interface ITasksGetAll {
 export interface ITasksAdd {
   type: TasksActionTypes.ADD;
   task: ITask;
+  newId: string;
 }
 
 export interface ITasksDelete {
   type: TasksActionTypes.DELETE;
-  id: number;
+  id: string;
 }
 
 export interface ITaskChangeInput {
@@ -32,7 +33,7 @@ export interface ITaskChangeInput {
 
 export interface ITasksChangeCurrent {
   type: TasksActionTypes.CHANGECURRENT;
-  id: number;
+  id: string;
 }
 
 export interface ITasksChangeTitle {
