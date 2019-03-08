@@ -5,7 +5,7 @@ import Tasks from "./Tasks";
 
 const initialTasksState: ITasksState = {
   tasks: [],
-  newTask: { id: tasks.length + 1, title: "" },
+  newTask: { id: tasks.length + 1, title: "", description: "" },
   currentTask: tasks[0]
 };
 
@@ -23,14 +23,22 @@ export const tasksReducer: Reducer<ITasksState, TasksActions> = (
     case TasksActionTypes.CHANGEINPUT: {
       return {
         ...state,
-        newTask: { id: state.tasks.slice(-1)[0].id + 1, title: action.input }
+        newTask: {
+          id: state.tasks.slice(-1)[0].id + 1,
+          title: action.input,
+          description: ""
+        }
       };
     }
     case TasksActionTypes.ADD: {
       return {
         tasks: state.tasks.concat(action.task),
         currentTask: action.task,
-        newTask: { id: state.tasks.slice(-1)[0].id + 1, title: "" }
+        newTask: {
+          id: state.tasks.slice(-1)[0].id + 1,
+          title: "",
+          description: ""
+        }
       };
     }
     case TasksActionTypes.CHANGECURRENT: {
@@ -43,7 +51,10 @@ export const tasksReducer: Reducer<ITasksState, TasksActions> = (
       return {
         ...state,
         tasks: state.tasks.filter(task => task.id !== action.id),
-        currentTask: { id: 9999, title: "" }
+        currentTask:
+          state.currentTask.id === action.id
+            ? { id: 9999, title: "", description: "" }
+            : state.currentTask
       };
     }
     case TasksActionTypes.CHANGETITLE: {

@@ -18,7 +18,7 @@ const TaskDetail: React.FC<IProps> = props => {
               <h2 className="font-bold text-xl mb-2">{props.task.title}</h2>
               <ReactQuill
                 className="resize-none w-full"
-                value={props.task.description || ""}
+                value={props.task.description}
                 onChange={props.onChange}
               />
             </div>
