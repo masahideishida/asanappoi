@@ -11,6 +11,13 @@ interface IProps {
 const TaskListItem: React.FC<IProps> = props => {
   const [completed, setTaskCompleted] = React.useState(false);
 
+  const refContainer = React.useRef<HTMLTextAreaElement>(null);
+  React.useEffect(() => {
+    if (refContainer && refContainer.current) {
+      refContainer.current.focus();
+    }
+  }, []);
+
   const handleCheckClick = () => {
     setTaskCompleted(!completed);
   };
@@ -27,6 +34,7 @@ const TaskListItem: React.FC<IProps> = props => {
       </div>
       <textarea
         className="resize-none appearance-none w-full h-6"
+        ref={refContainer}
         value={props.title}
         onChange={props.onChange}
         onClick={props.onClick}

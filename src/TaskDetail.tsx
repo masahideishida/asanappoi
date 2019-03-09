@@ -36,17 +36,6 @@ const TaskDetail: React.FC<IProps> = props => {
                 onChange={props.onDescriptionChange}
               />
             </div>
-            <div className="px-6 py-4">
-              <span className="inline-block bg-grey-lighter rounded-full px-3 py-1 text-sm font-semibold text-grey-darker mr-2">
-                #photography
-              </span>
-              <span className="inline-block bg-grey-lighter rounded-full px-3 py-1 text-sm font-semibold text-grey-darker mr-2">
-                #travel
-              </span>
-              <span className="inline-block bg-grey-lighter rounded-full px-3 py-1 text-sm font-semibold text-grey-darker">
-                #winter
-              </span>
-            </div>
           </div>
         </React.Fragment>
       ) : (
