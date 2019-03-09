@@ -49,19 +49,20 @@ class Tasks extends React.Component<IProps> {
             newTask={this.props.newTask}
             handleTextareaClick={this.changeCurrentTask}
             onCloseClick={this.deleteTask}
-            onTextareaChange={this.handleTextareaChange}
+            onTextareaChange={this.handleTitleChange}
             onKeyDown={this.enterTextareaNewTaskCreate}
           />
           <TaskDetail
             task={this.props.currentTask}
-            onChange={this.handleDescriptionChange}
+            onDescriptionChange={this.handleDescriptionChange}
+            onTitleChange={this.handleTitleChange}
           />
         </div>
       </React.Fragment>
     );
   }
 
-  private handleTextareaChange = (title: string) => {
+  private handleTitleChange = (title: string) => {
     this.props.changeTitle(title);
   };
 
