@@ -1,11 +1,10 @@
 import { Reducer } from "redux";
 import { ITasksState, TasksActions, TasksActionTypes } from "./TasksTypes";
-import { tasks } from "./TasksData";
-import Utils from "./Utils";
+import { tasks, newTask } from "./TasksData";
 
 const initialTasksState: ITasksState = {
   tasks: [],
-  newTask: { id: Utils.newId(), title: "", description: "" },
+  newTask,
   currentTask: tasks[0]
 };
 

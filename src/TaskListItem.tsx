@@ -1,10 +1,10 @@
 import * as React from "react";
 
 interface IProps {
-  id: string;
   title: string;
   onClick: () => void;
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  onKeyDown: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
   onCloseClick: () => void;
 }
 
@@ -30,6 +30,7 @@ const TaskListItem: React.FC<IProps> = props => {
         value={props.title}
         onChange={props.onChange}
         onClick={props.onClick}
+        onKeyDown={props.onKeyDown}
       />
       <div className="inline-block" onClick={props.onCloseClick}>
         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6">

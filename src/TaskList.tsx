@@ -4,6 +4,8 @@ import { ITask } from "./TasksData";
 
 interface IProps {
   tasks: ITask[];
+  newTask: ITask;
+  onKeyDown: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
   onCloseClick: (id: string) => void;
   onTextareaChange: (title: string) => void;
   handleTextareaClick: (id: string) => void;
@@ -20,10 +22,10 @@ const TaskList: React.FC<IProps> = props => {
       {props.tasks.map(task => (
         <TaskListItem
           key={task.id}
-          id={task.id}
           title={task.title}
           onCloseClick={() => props.onCloseClick(task.id)}
           onClick={() => props.handleTextareaClick(task.id)}
+          onKeyDown={e => props.onKeyDown(e)}
           onChange={handleTextareaChange}
         />
       ))}
