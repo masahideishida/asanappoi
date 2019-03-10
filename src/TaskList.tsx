@@ -6,6 +6,7 @@ interface IProps {
   tasks: ITask[];
   newTask: ITask;
   onKeyDown: (e: React.KeyboardEvent<HTMLTextAreaElement>, id: string) => void;
+  onCloseClick: (id: string) => void;
   onTextareaChange: (title: string) => void;
   handleTextareaClick: (id: string) => void;
 }
@@ -22,6 +23,7 @@ const TaskList: React.FC<IProps> = props => {
         <TaskListItem
           key={task.id}
           title={task.title}
+          onCloseClick={() => props.onCloseClick(task.id)}
           onClick={() => props.handleTextareaClick(task.id)}
           onKeyDown={e => props.onKeyDown(e, task.id)}
           onChange={handleTextareaChange}

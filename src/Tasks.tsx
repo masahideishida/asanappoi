@@ -48,6 +48,7 @@ class Tasks extends React.Component<IProps> {
           tasks={this.props.tasks}
           newTask={this.props.newTask}
           handleTextareaClick={this.changeCurrentTask}
+          onCloseClick={this.deleteTask}
           onTextareaChange={this.handleTitleChange}
           onKeyDown={this.handleKeyDown}
         />
