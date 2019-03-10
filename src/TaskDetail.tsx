@@ -39,7 +39,7 @@ const TaskDetail: React.FC<IProps> = props => {
           </div>
         </React.Fragment>
       ) : (
-        <p>Task not found!</p>
+        <div />
       )}
     </div>
   );

@@ -2,7 +2,6 @@ import * as React from "react";
 import { ITask, tasks } from "./TasksData";
 import TaskList from "./TaskList";
 import TaskDetail from "./TaskDetail";
-import TaskInput from "./TaskInput";
 import {
   getAllTasks,
   changeInput,
@@ -34,31 +33,30 @@ class Tasks extends React.Component<IProps> {
     this.props.getAllTasks();
   }
 
+  public componentDidUpdate() {
+    window.setTimeout(() => {
+      if (this.props.tasks.length === 0) {
+        this.newTaskCreate();
+      }
+    }, 1000);
+  }
+
   public render() {
     return (
-      <React.Fragment>
-        <TaskInput
-          title={this.props.newTask.title}
-          onClick={this.newTaskCreate}
-          onKeyDown={this.enterNewTaskCreate}
-          onChange={this.handleInputChange}
+      <div className="flex flex-col md:flex-row">
+        <TaskList
+          tasks={this.props.tasks}
+          newTask={this.props.newTask}
+          handleTextareaClick={this.changeCurrentTask}
+          onTextareaChange={this.handleTitleChange}
+          onKeyDown={this.handleKeyDown}
         />
-        <div className="flex flex-col md:flex-row">
-          <TaskList
-            tasks={this.props.tasks}
-            newTask={this.props.newTask}
-            handleTextareaClick={this.changeCurrentTask}
-            onCloseClick={this.deleteTask}
-            onTextareaChange={this.handleTitleChange}
-            onKeyDown={this.enterTextareaNewTaskCreate}
-          />
-          <TaskDetail
-            task={this.props.currentTask}
-            onDescriptionChange={this.handleDescriptionChange}
-            onTitleChange={this.handleTitleChange}
-          />
-        </div>
-      </React.Fragment>
+        <TaskDetail
+          task={this.props.currentTask}
+          onDescriptionChange={this.handleDescriptionChange}
+          onTitleChange={this.handleTitleChange}
+        />
+      </div>
     );
   }
 
@@ -74,28 +72,26 @@ class Tasks extends React.Component<IProps> {
     this.props.deleteTask(id);
   };
 
-  private handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.props.changeInput(e.currentTarget.value);
-  };
-
   private newTaskCreate = () => {
     this.props.addTask(this.props.newTask);
   };
 
-  private enterNewTaskCreate = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.keyCode === 13) {
-      this.newTaskCreate();
-    }
-  };
-
-  private enterTextareaNewTaskCreate = (
-    e: React.KeyboardEvent<HTMLTextAreaElement>
+  private handleKeyDown = (
+    e: React.KeyboardEvent<HTMLTextAreaElement>,
+    id: string
   ) => {
     if (e.keyCode === 13 && e.currentTarget.value !== "") {
       e.preventDefault();
       this.newTaskCreate();
     } else if (e.keyCode === 13) {
       e.preventDefault();
+    } else if (
+      (e.keyCode === 8 || e.keyCode === 46) &&
+      e.currentTarget.value === ""
+    ) {
+      this.deleteTask(id);
+    } else if (e.shiftKey && (e.keyCode === 8 || e.keyCode === 46)) {
+      this.deleteTask(id);
     }
   };
 
