@@ -5,11 +5,13 @@ interface IProps {
   onClick: () => void;
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   onKeyDown: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
-  onCloseClick: () => void;
 }
 
 const TaskListItem: React.FC<IProps> = props => {
   const [completed, setTaskCompleted] = React.useState(false);
+  const handleCheckClick = () => {
+    setTaskCompleted(!completed);
+  };
 
   const refContainer = React.useRef<HTMLTextAreaElement>(null);
   React.useEffect(() => {
@@ -17,10 +19,6 @@ const TaskListItem: React.FC<IProps> = props => {
       refContainer.current.focus();
     }
   }, []);
-
-  const handleCheckClick = () => {
-    setTaskCompleted(!completed);
-  };
 
   return (
     <div className="w-5/6 mx-auto p-2 my-2 border-b border-b-2 border-teal flex">
@@ -40,11 +38,6 @@ const TaskListItem: React.FC<IProps> = props => {
         onClick={props.onClick}
         onKeyDown={props.onKeyDown}
       />
-      <div className="inline-block" onClick={props.onCloseClick}>
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6">
-          <path d="M12,2C6.47,2,2,6.47,2,12s4.47,10,10,10s10-4.47,10-10S17.53,2,12,2z M17,15.59L15.59,17L12,13.41L8.41,17L7,15.59 L10.59,12L7,8.41L8.41,7L12,10.59L15.59,7L17,8.41L13.41,12L17,15.59z" />
-        </svg>
-      </div>
     </div>
   );
 };
