@@ -97,7 +97,10 @@ class Tasks extends React.Component<IProps> {
       this.newTaskCreate();
     } else if (e.keyCode === 13) {
       e.preventDefault();
-    } else if ((e.keyCode === 8 || 46) && e.currentTarget.value === "") {
+    } else if (
+      (e.keyCode === 8 || e.keyCode === 46) &&
+      e.currentTarget.value === ""
+    ) {
       this.deleteTask(id);
     }
   };
