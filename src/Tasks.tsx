@@ -50,7 +50,7 @@ class Tasks extends React.Component<IProps> {
             handleTextareaClick={this.changeCurrentTask}
             onCloseClick={this.deleteTask}
             onTextareaChange={this.handleTitleChange}
-            onKeyDown={this.enterTextareaNewTaskCreate}
+            onKeyDown={this.handleKeyDown}
           />
           <TaskDetail
             task={this.props.currentTask}
@@ -88,14 +88,17 @@ class Tasks extends React.Component<IProps> {
     }
   };
 
-  private enterTextareaNewTaskCreate = (
-    e: React.KeyboardEvent<HTMLTextAreaElement>
+  private handleKeyDown = (
+    e: React.KeyboardEvent<HTMLTextAreaElement>,
+    id: string
   ) => {
     if (e.keyCode === 13 && e.currentTarget.value !== "") {
       e.preventDefault();
       this.newTaskCreate();
     } else if (e.keyCode === 13) {
       e.preventDefault();
+    } else if ((e.keyCode === 8 || 46) && e.currentTarget.value === "") {
+      this.deleteTask(id);
     }
   };
 
