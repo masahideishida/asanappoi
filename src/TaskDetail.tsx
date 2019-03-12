@@ -26,6 +26,7 @@ const TaskDetail: React.FC<IProps> = props => {
                   type="text"
                   id="title"
                   className="appearance-none bg-transparent border-none w-full text-black mr-3 py-1 px-2 leading-tight focus:outline-none"
+                  placeholder="Write a task title"
                   value={props.task.title}
                   onChange={handleInputChange}
                 />

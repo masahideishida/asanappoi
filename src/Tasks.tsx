@@ -33,14 +33,6 @@ class Tasks extends React.Component<IProps> {
     this.props.getAllTasks();
   }
 
-  public componentDidUpdate() {
-    window.setTimeout(() => {
-      if (this.props.tasks.length === 0) {
-        this.newTaskCreate();
-      }
-    }, 1000);
-  }
-
   public render() {
     return (
       <div className="flex flex-col md:flex-row">
@@ -48,6 +40,7 @@ class Tasks extends React.Component<IProps> {
           tasks={this.props.tasks}
           newTask={this.props.newTask}
           handleTextareaClick={this.changeCurrentTask}
+          onAddButtonClick={this.handleAddButtonClick}
           onCloseClick={this.deleteTask}
           onTextareaChange={this.handleTitleChange}
           onKeyDown={this.handleKeyDown}
@@ -60,6 +53,10 @@ class Tasks extends React.Component<IProps> {
       </div>
     );
   }
+
+  private handleAddButtonClick = () => {
+    this.props.addTask(this.props.newTask);
+  };
 
   private handleTitleChange = (title: string) => {
     this.props.changeTitle(title);

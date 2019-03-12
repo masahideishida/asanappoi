@@ -6,6 +6,7 @@ interface IProps {
   tasks: ITask[];
   newTask: ITask;
   onKeyDown: (e: React.KeyboardEvent<HTMLTextAreaElement>, id: string) => void;
+  onAddButtonClick: () => void;
   onCloseClick: (id: string) => void;
   onTextareaChange: (title: string) => void;
   handleTextareaClick: (id: string) => void;
@@ -19,6 +20,12 @@ const TaskList: React.FC<IProps> = props => {
 
   return (
     <div className="container my-4 m-auto p-4 shadow w-5/6">
+      <button
+        onClick={props.onAddButtonClick}
+        className="bg-teal hover:bg-teal-dark text-white font-bold py-2 px-4 my-2 rounded"
+      >
+        Add Task
+      </button>
       {props.tasks.map(task => (
         <TaskListItem
           key={task.id}
