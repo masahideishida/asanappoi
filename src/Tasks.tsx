@@ -109,12 +109,12 @@ const mapStateToProps = (store: IApplicationState) => {
 const mapDispatchToProps = (dispatch: any) => {
   return {
     getAllTasks: () => dispatch(getAllTasks()),
-    addTask: (e: ITask) => dispatch(addTask(e)),
-    deleteTask: (e: number) => dispatch(deleteTask(e)),
-    changeInput: (e: string) => dispatch(changeInput(e)),
-    changeCurrentTask: (e: number) => dispatch(changeCurrentTask(e)),
-    changeTitle: (e: string) => dispatch(changeTitle(e)),
-    changeDescription: (e: string) => dispatch(changeDescription(e))
+    addTask: (task: ITask) => dispatch(addTask(task)),
+    deleteTask: (id: string) => dispatch(deleteTask(id)),
+    changeInput: (title: string) => dispatch(changeInput(title)),
+    changeCurrentTask: (id: string) => dispatch(changeCurrentTask(id)),
+    changeTitle: (title: string) => dispatch(changeTitle(title)),
+    changeDescription: (content: string) => dispatch(changeDescription(content))
   };
 };
 
