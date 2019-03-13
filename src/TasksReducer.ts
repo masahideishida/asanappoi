@@ -5,7 +5,7 @@ import { tasks, newTask } from "./TasksData";
 const initialTasksState: ITasksState = {
   tasks: [],
   newTask,
-  currentTask: tasks[0]
+  currentTask: tasks[tasks.length - 1]
 };
 
 export const tasksReducer: Reducer<ITasksState, TasksActions> = (

@@ -1,4 +1,4 @@
-import { combineReducers, createStore, Store } from "redux";
+import { combineReducers, createStore } from "redux";
 import { ITasksState } from "./TasksTypes";
 import { tasksReducer } from "./TasksReducer";
 

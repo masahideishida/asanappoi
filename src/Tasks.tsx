@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ITask, tasks } from "./TasksData";
+import { ITask } from "./TasksData";
 import TaskList from "./TaskList";
 import TaskDetail from "./TaskDetail";
 import {
